@@ -108,27 +108,6 @@ Envie os arquivos da VM para o HDFS
 
 `hdfs dfs -put /home/vagrant/si_log.csv /user/vagrant/log/`
 
-Faça o upload do arquivo professores.csv para a VM provisionada pelo Vagrant
-
-`vagrant upload "professores.csv" /home/vagrant/professor.csv`
-
-Crie uma pasta chamada 'vagrant' em /users/ dentro da estrutura do hdfs
-
-`hdfs dfs -mkdir /user/vagrant/`
-
-Crie uma pasta chamada 'professor' em /users/vagrant/ dentro da estrutura do hdfs
-
-`hdfs dfs -mkdir /user/vagrant/professor`
-
-Crie uma pasta chamada 'result' em /users/vagrant/ dentro da estrutura do hdfs (esta pasta conterá os resultados)
-
-`hdfs dfs -mkdir /user/vagrant/result`
-
-Copie o arquito professor.csv da VM para dentro do hdfs
-
-`hdfs dfs -put /home/vagrant/professor.csv /user/vagrant/professor/`
-
-
 ## Instalar Python3.7 e Libs Pandas e Matplotlib
 
 Adicione o repositório com o Python3.7
