@@ -152,6 +152,7 @@ Instale o PIP
 Rode os comandos abaixo setar a prioridades de uso do Python
 
 `sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1`
+
 `sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2`
 
 Inicializar o python3.7 como padrão na inicialização do sistema
@@ -161,7 +162,9 @@ Inicializar o python3.7 como padrão na inicialização do sistema
 Escreva os comandos abaixo em uma nova linha para trocar a versão padrão do python do spark para o python3
 
 `alias python=python3`
+
 `export PYSPARK_PYTHON=/usr/bin/python3`
+
 `export PYSPARK_DRIVER_PYTHON=/usr/bin/python3`
 
 Escreva o comando abaixo para recarregar o .bashrc
