@@ -1,10 +1,10 @@
 # Disciplina: Data Engineering (Big Data & Analitycs)
-# Professor: Antonio Claudio Lopes 
-# Integrantes:
+## Professor: Antonio Claudio Lopes 
+## Integrantes:
 * Dabla Arévalo Ferreira
 * Gabrielle Brito Cadurim
 * Larissa Alves da Silva
-* Mateus Moreira Santana
+* Mateus Soares da Silva
 * Vinicius Miranda Lopes Schulz
 
 ## Avaliação final - Trabalho em grupo
