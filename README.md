@@ -124,21 +124,21 @@ ou (para máquina linux usando docker)
 
 `sudo apt-get install python3.7`
 
-Instale o PIP
+**Instale o PIP**
 
 `sudo apt install python3-pip`
 
-Rode os comandos abaixo setar a prioridades de uso do Python
+**Rode os comandos abaixo setar a prioridades de uso do Python**
 
 `sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1`
 
 `sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2`
 
-Inicializar o python3.7 como padrão na inicialização do sistema
+**Inicializar o python3.7 como padrão na inicialização do sistema**
 
 `nano ~/.bashrc.`
 
-Escreva os comandos abaixo em uma nova linha para trocar a versão padrão do python do spark para o python3
+**Escreva os comandos abaixo em uma nova linha para trocar a versão padrão do python do spark para o python3**
 
 `alias python=python3`
 
@@ -146,11 +146,11 @@ Escreva os comandos abaixo em uma nova linha para trocar a versão padrão do py
 
 `export PYSPARK_DRIVER_PYTHON=/usr/bin/python3`
 
-Escreva o comando abaixo para recarregar o .bashrc
+**Escreva o comando abaixo para recarregar o .bashrc**
 
 `source ~/.bashrc`
 
-Instale as libs pandas e matplotlib
+**Instale as libs pandas e matplotlib**
 
 `pip3 install pandas`
 
@@ -158,19 +158,19 @@ Instale as libs pandas e matplotlib
 
 ## Inicializando o HIVE e criando tabelas
 
-A partir da linha de comando da VM, inicie o HIVE com o comando abaixo
+**A partir da linha de comando da VM, inicie o HIVE com o comando abaixo**
 
 `hive`
 
-Crie um database
+**Crie um database**
 
 `CREATE DATABASE gpdb;`
 
-Conecte-se ao database criado
+**Conecte-se ao database criado**
 
 `USE gpdb;`
 
-Crie as EXTERNAL TABLE 
+**Crie as EXTERNAL TABLE**
 
 ```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS si_env(`num_boletim` STRING, `data_hora_boletim` STRING, `Nº_envolvido` STRING, `condutor` STRING, `cod_severidade` STRING, `desc_severidade` STRING, `sexo` STRING, `cinto_seguranca` STRING, `Embreagues` STRING, `Idade` STRING, `nascimento` STRING, `categoria_habilitacao` STRING, `descricao_habilitacao` STRING, `declaracao_obito` STRING, `cod_severidade_antiga` STRING, `especie_veiculo` STRING, `pedestre` STRING, `passageiro` STRING)
@@ -195,16 +195,15 @@ STORED AS TEXTFILE
 LOCATION '/user/vagrant/log/';
 ```
 
-
 ## Geração dos resultados usando pyspark
 
 ### Total de acidentes com vítima por bairro em acidentes com embriaguez;
 
-Execute o comando pyspark
+**Execute o comando pyspark**
 
 `pyspark`
 
-Execute o código python abaixo dentro na linha de comando do pyspark
+**Execute o código python abaixo dentro na linha de comando do pyspark**
 
 ```python
 from pyspark.sql import SparkSession
@@ -225,7 +224,7 @@ for key in df_dict:
     plt.savefig('output/output'+str(key)+'.png')
 ```
 
-Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D
+**Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D**
 
 ### Total de acidentes por tipo de pavimento e condição do tempo;
 
@@ -254,7 +253,7 @@ FALTA INCLUIR
 
 ## Parar a máquina virtual
 
-Pelo linha de comando digite e aguarde o encerramento da VM
+**Pelo linha de comando digite e aguarde o encerramento da VM**
 
 `vagrant halt`
 
