@@ -72,7 +72,7 @@ ou (para máquina linux usando docker)
 
 ## Criando estrutura de diretórios na VM e HDFS e cópia de arquivos
 
-** Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv para a VM **
+**Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv para a VM**
 
 `vagrant upload "si_env-2019.csv" /home/vagrant/si_env.csv`
 
@@ -80,15 +80,15 @@ ou (para máquina linux usando docker)
 
 `vagrant upload "si-log-2019.csv" /home/vagrant/si_log.csv`
 
-** Conecte-se à VM usando o comando abaixo **
+**Conecte-se à VM usando o comando abaixo**
 
 `vagrant ssh`
 
-** Crie o diretorio output na pasta /home/vagrant/ da VM **
+**Crie o diretorio output na pasta /home/vagrant/ da VM**
 
 `mkdir /home/vagrant/output`
 
-** Crie a estrutura de pastas no HDFS **
+**Crie a estrutura de pastas no HDFS**
 
 `hdfs dfs -mkdir /user/vagrant/`
 
@@ -100,7 +100,7 @@ ou (para máquina linux usando docker)
 
 `hdfs dfs -mkdir /user/vagrant/output`
 
-** Envie os arquivos da VM para o HDFS **
+**Envie os arquivos da VM para o HDFS**
 
 `hdfs dfs -put /home/vagrant/si_env.csv /user/vagrant/env/`
 
@@ -110,15 +110,15 @@ ou (para máquina linux usando docker)
 
 ## Instalar Python3.7 e Libs Pandas e Matplotlib
 
-** Adicione o repositório com o Python3.7 **
+**Adicione o repositório com o Python3.7**
 
 `sudo add-apt-repository ppa:deadsnakes/ppa`
 
-** Atualize os pacotes **
+**Atualize os pacotes**
 
 `sudo apt-get update`
 
-** Instale o Python3.7 (necessário instalar o Python3.6 antes) **
+**Instale o Python3.7 (necessário instalar o Python3.6 antes)**
 
 `sudo apt-get install python3.6`
 
