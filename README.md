@@ -38,8 +38,8 @@
 - Vagrant - https://www.vagrantup.com/downloads 
 - Virtual Box - https://www.virtualbox.org/wiki/Downloads ou Docker - https://docs.docker.com/engine/install/
 - Git - https://git-scm.com/downloads
-- Python 3.7 - Deve ser instalado na VM
-- pip3 - Deve ser instalado na VM
+- Python 3.7 - Deve ser instalado na VM (passo-a-passo abaixo)
+- pip3 - Deve ser instalado na VM (passo-a-passo abaixo)
 
 ### Passos para iniciar a máquina:
 
@@ -72,7 +72,7 @@ ou (para máquina linux usando docker)
 
 ## Criando estrutura de diretórios na VM e HDFS e cópia de arquivos
 
-Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv para a VM
+* Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv para a VM *
 
 `vagrant upload "si_env-2019.csv" /home/vagrant/si_env.csv`
 
@@ -80,11 +80,11 @@ Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv p
 
 `vagrant upload "si-log-2019.csv" /home/vagrant/si_log.csv`
 
-Conecte-se à VM usando o comando abaixo
+* Conecte-se à VM usando o comando abaixo *
 
 `vagrant ssh`
 
-Crie o diretorio output na pasta /home/vagrant/ da VM
+* Crie o diretorio output na pasta /home/vagrant/ da VM *
 
 `mkdir /home/vagrant/output`
 
@@ -195,7 +195,10 @@ STORED AS TEXTFILE
 LOCATION '/user/vagrant/log/';
 ```
 
-## Execução de comandos no Spark
+
+## Geração dos resultados usando pyspark
+
+### Total de acidentes com vítima por bairro em acidentes com embriaguez;
 
 Execute o comando pyspark
 
@@ -223,6 +226,21 @@ for key in df_dict:
 ```
 
 Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D
+
+### Total de acidentes por tipo de pavimento e condição do tempo;
+
+FALTA INCLUIR
+
+### Total de pessoas acidentadas por tipo de veiculo e tipo de pavimentação;
+
+FALTA INCLUIR
+
+### Média de idade dos condutores por tipo de veículo e tipo de acidente;
+
+FALTA INCLUIR
+
+### Média de idade dos condutores por indicativo de embriaguez;
+
 
 ## Enviar arquivos gerados para o HDFS
 
