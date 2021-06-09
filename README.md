@@ -34,16 +34,18 @@
 
 ### Pré-requisitos:
 
-- Ao menos 4Gb RAM
+- Pelo menos 4Gb RAM
 - Vagrant - https://www.vagrantup.com/downloads 
 - Virtual Box - https://www.virtualbox.org/wiki/Downloads ou Docker - https://docs.docker.com/engine/install/
 - Git - https://git-scm.com/downloads
+- Python 3.7 - Deve ser instalado na VM
+- pip3 - Deve ser instalado na VM
 
 ### Passos para iniciar a máquina:
 
 1) Abra o prompt de comando (se o SO do host for windows, abra como administrador) e digite: 
 
-`git clone https://github.com/vinicius-schulz/hive_hadoop.git`
+`git clone https://github.com/vinicius-schulz/data-engineering-trabalho-final.git`
 
 2) Navegue até o diretório do projeto pelo usando o terminal de sua preferência
 
@@ -68,11 +70,43 @@ ou (para máquina linux usando docker)
 - HDFS: (http://node1:50070/dfshealth.html)
 - Spark history server: (http://node1:18080)
 
-## Criando estrutura de diretórios e cópia de arquivo
+## Criando estrutura de diretórios na VM e HDFS e cópia de arquivos
+
+Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv para a VM
+
+`vagrant upload "si_env-2019.csv" /home/vagrant/si_env.csv`
+
+`vagrant upload "si-bol-2019.csv" /home/vagrant/si_bol.csv`
+
+`vagrant upload "si-log-2019.csv" /home/vagrant/si_log.csv`
 
 Conecte-se à VM usando o comando abaixo
 
 `vagrant ssh`
+
+Crie o diretorio output na pasta /home/vagrant/ da VM
+
+`mkdir /home/vagrant/output`
+
+Crie a estrutura de pastas no HDFS
+
+`hdfs dfs -mkdir /user/vagrant/`
+
+`hdfs dfs -mkdir /user/vagrant/env`
+
+`hdfs dfs -mkdir /user/vagrant/bol`
+
+`hdfs dfs -mkdir /user/vagrant/log`
+
+`hdfs dfs -mkdir /user/vagrant/output`
+
+Envie os arquivos da VM para o HDFS
+
+`hdfs dfs -put /home/vagrant/si_env.csv /user/vagrant/env/`
+
+`hdfs dfs -put /home/vagrant/si_bol.csv /user/vagrant/bol/`
+
+`hdfs dfs -put /home/vagrant/si_log.csv /user/vagrant/log/`
 
 Faça o upload do arquivo professores.csv para a VM provisionada pelo Vagrant
 
@@ -94,6 +128,52 @@ Copie o arquito professor.csv da VM para dentro do hdfs
 
 `hdfs dfs -put /home/vagrant/professor.csv /user/vagrant/professor/`
 
+
+## Instalar Python3.7 e Libs Pandas e Matplotlib
+
+Adicione o repositório com o Python3.7
+
+`sudo add-apt-repository ppa:deadsnakes/ppa`
+
+Atualize os pacotes
+
+`sudo apt-get update`
+
+Instale o Python3.7 (necessário instalar o Python3.6 antes)
+
+`sudo apt-get install python3.6`
+
+`sudo apt-get install python3.7`
+
+Instale o PIP
+
+`sudo apt install python3-pip`
+
+Rode os comandos abaixo setar a prioridades de uso do Python
+
+`sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1`
+`sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2`
+
+Inicializar o python3.7 como padrão na inicialização do sistema
+
+`nano ~/.bashrc.`
+
+Escreva os comandos abaixo em uma nova linha para trocar a versão padrão do python do spark para o python3
+
+`alias python=python3`
+`export PYSPARK_PYTHON=/usr/bin/python3`
+`export PYSPARK_DRIVER_PYTHON=/usr/bin/python3`
+
+Escreva o comando abaixo para recarregar o .bashrc
+
+`source ~/.bashrc`
+
+Instale as libs pandas e matplotlib
+
+`pip3 install pandas`
+
+`pip3 install matplotlib`
+
 ## Inicializando o HIVE e criando tabelas
 
 A partir da linha de comando da VM, inicie o HIVE com o comando abaixo
@@ -102,36 +182,75 @@ A partir da linha de comando da VM, inicie o HIVE com o comando abaixo
 
 Crie um database
 
-`CREATE DATABASE professorDB;`
+`CREATE DATABASE gpdb;`
 
 Conecte-se ao database criado
 
-`USE professorDB;`
+`USE gpdb;`
 
-Crie a EXTERNAL TABLE 
+Crie as EXTERNAL TABLE 
 
 ```sql
-CREATE EXTERNAL TABLE IF NOT EXISTS professor(matricula STRING,nome STRING,turno STRING,carga_horaria STRING,lotacao STRING,atividade STRING)
-COMMENT 'Tabela de Professores'
+CREATE EXTERNAL TABLE IF NOT EXISTS si_env(`num_boletim` STRING, `data_hora_boletim` STRING, `Nº_envolvido` STRING, `condutor` STRING, `cod_severidade` STRING, `desc_severidade` STRING, `sexo` STRING, `cinto_seguranca` STRING, `Embreagues` STRING, `Idade` STRING, `nascimento` STRING, `categoria_habilitacao` STRING, `descricao_habilitacao` STRING, `declaracao_obito` STRING, `cod_severidade_antiga` STRING, `especie_veiculo` STRING, `pedestre` STRING, `passageiro` STRING)
+COMMENT 'TABELA SI_ENV'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ';'
 STORED AS TEXTFILE
-LOCATION '/user/vagrant/professor/';
+LOCATION '/user/vagrant/env/';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS si_bol(`NUMERO_BOLETIM` STRING, `DATA HORA_BOLETIM` STRING, `DATA_INCLUSAO` STRING, `TIPO_ACIDENTE` STRING, `DESC_TIPO_ACIDENTE` STRING, `COD_TEMPO` STRING, `DESC_TEMPO` STRING, `COD_PAVIMENTO` STRING, `PAVIMENTO` STRING, `COD_REGIONAL` STRING, `DESC_REGIONAL` STRING, `ORIGEM_BOLETIM` STRING, `LOCAL_SINALIZADO` STRING, `VELOCIDADE_PERMITIDA` STRING, `COORDENADA_X` STRING, `COORDENADA_Y` STRING, `HORA_INFORMADA` STRING, `INDICADOR_FATALIDADE` STRING, `VALOR_UPS` STRING, `DESCRIÇÃO_UPS` STRING, `DATA_ALTERACAO_SMSA` STRING, `VALOR_UPS_ANTIGA` STRING, `DESCRIÇÃO_UPS_ANTIGA` STRING)
+COMMENT 'TABELA SI_BOL'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ';'
+STORED AS TEXTFILE
+LOCATION '/user/vagrant/bol/';
+
+CREATE EXTERNAL TABLE IF NOT EXISTS si_log(`Nº_boletim` STRING, `data_boletim` STRING, `Nº_municipio` STRING, `nome_municipio` STRING, `seq_logradouros` STRING, `Nº_logradouro` STRING, `tipo_logradouro` STRING, `nome_logradouro` STRING, `tipo_logradouro_anterior` STRING, `nome_logradouro_anterior` STRING, `Nº_bairro` STRING, `nome_bairro` STRING, `tipo_bairro` STRING, `descricao_tipo_bairro` STRING, `Nº_imovel` STRING, `Nº_imovel_proximo` STRING)
+COMMENT 'TABELA SI_LOG'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ';'
+STORED AS TEXTFILE
+LOCATION '/user/vagrant/log/';
 ```
 
-## Execução de comandos no HIVE e visualização de resultados
+## Execução de comandos no Spark
 
-1) Execute o comando abaixo para agrupar os professores por lotação e armazenar o resultado no diretório '/user/vagrant/result/'
+Execute o comando pyspark
 
-```sql
-INSERT OVERWRITE DIRECTORY '/user/vagrant/result/' SELECT lotacao, COUNT(*) FROM professor GROUP BY lotacao;
+`pyspark`
+
+Execute o código python abaixo dentro na linha de comando do pyspark
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql import Row
+import matplotlib.pyplot as plt
+spark = SparkSession.builder.appName("Total de acidentes com vitima por bairro em acidentes com embriaguez").enableHiveSupport().getOrCreate()
+spark.sql("use gpdb")
+df = spark.sql("SELECT trim(log.`nome_bairro`) as nome_bairro, COUNT(log.`nome_bairro`) as Quantidade FROM si_log log JOIN si_bol bol ON bol.`NUMERO_BOLETIM` = log.`Nº_boletim` WHERE EXISTS (SELECT * FROM si_env env where env.`Embreagues` = 'SIM' AND bol.`NUMERO_BOLETIM` = env.`num_boletim`) AND  bol.`DESC_TIPO_ACIDENTE` NOT LIKE '%SEM VITIMA%' GROUP BY log.`Nº_bairro`, log.`nome_bairro` ORDER BY log.`nome_bairro`")
+dfpandas=df.toPandas()
+
+size = 10
+df_dict = {n: dfpandas.iloc[n:n+size, :] for n in range(0, len(dfpandas), size)}
+
+for key in df_dict:
+    plt.clf()
+    plt.close()
+    df_dict[key].plot.barh(y='Quantidade', x='nome_bairro', rot=75, figsize=(12, 12), fontsize=12, title='Número de Acidentes com Vítimas por Bairro', xlabel='Bairros')
+    plt.savefig('output/output'+str(key)+'.png')
 ```
 
-2) Será criado um arquivo contendo os resultados no diretório '/user/vagrant/result/' com o nome 000000_0. Será possível acessar o mesmo por meio do link 
+Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D
 
-[http://node1:50070/explorer.html#/user/vagrant/result](http://node1:50070/explorer.html#/user/vagrant/result)
+## Enviar arquivos gerados para o HDFS
 
-3) Alternativamente, já disponibilizei o arquivo gerado no diretório do projeto com o nome 'Resultados.txt'
+1) Execute o comando abaixo para copiar as imagens geradas para o HDFS
+
+`hdfs dfs -put -f /home/vagrant/output/ /user/vagrant/output/`
+
+2) Os arquivos de imagem serão disponibilizados no diretorio  '/user/vagrant/output/'. Será possível acessar o mesmo por meio do link
+
+[http://node1:50070/explorer.html#/user/vagrant/output](http://node1:50070/explorer.html#/user/vagrant/output)
 
 ## Parar a máquina virtual
 
