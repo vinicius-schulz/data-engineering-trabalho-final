@@ -1,5 +1,7 @@
 # Disciplina: Data Engineering (Big Data & Analitycs)
-## Professor: Antonio Claudio Lopes 
+## Professor: 
+* Antonio Claudio Lopes 
+
 ## Integrantes:
 * Dabla Arévalo Ferreira
 * Gabrielle Brito Cadurim
