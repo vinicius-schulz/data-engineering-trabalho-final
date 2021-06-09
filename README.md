@@ -140,13 +140,13 @@ ou (para máquina linux usando docker)
 
 `nano ~/.bashrc.`
 
-**Escreva os comandos abaixo em uma nova linha para trocar a versão padrão do python do spark para o python3**
+**Adicione as linhas abaixo ao final do arquivo aberto no nano para trocar a versão padrão do python do spark para o python3. Salve o arquivo após a edição.**
 
-`alias python=python3`
-
-`export PYSPARK_PYTHON=/usr/bin/python3`
-
-`export PYSPARK_DRIVER_PYTHON=/usr/bin/python3`
+```console
+alias python=python3
+export PYSPARK_PYTHON=/usr/bin/python3
+export PYSPARK_DRIVER_PYTHON=/usr/bin/python3
+```
 
 **Escreva o comando abaixo para recarregar o .bashrc**
 
