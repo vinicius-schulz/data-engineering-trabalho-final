@@ -112,6 +112,10 @@ ou (para máquina linux usando docker)
 
 ## Instalar Python3.7 e Libs Pandas e Matplotlib
 
+**Instale pacote software-properties-common para usar o comando add-apt-repository**
+
+`sudo apt-get install software-properties-common`
+
 **Adicione o repositório com o Python3.7**
 
 `sudo add-apt-repository ppa:deadsnakes/ppa`
