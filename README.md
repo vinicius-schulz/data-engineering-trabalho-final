@@ -140,9 +140,13 @@ ou (para máquina linux usando docker)
 
 `sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2`
 
+**Instale o editor nano**
+
+`sudo apt-get install nano`
+
 **Inicializar o python3.7 como padrão na inicialização do sistema**
 
-`nano ~/.bashrc.`
+`nano ~/.bashrc`
 
 **Adicione as linhas abaixo ao final do arquivo aberto no nano para trocar a versão padrão do python do spark para o python3. Salve o arquivo após a edição.**
 
