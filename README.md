@@ -234,6 +234,10 @@ for key in df_dict:
     plt.savefig('output/output'+str(key)+'.png')
 ```
 
+**Também é possível executar uma aplicação escrita em um arquivo usando o comando spark-submit**
+
+`spark-submit /vagrant/sparks.py`
+
 **Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D**
 
 ### Total de acidentes por tipo de pavimento e condição do tempo;
