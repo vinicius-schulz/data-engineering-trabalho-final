@@ -140,9 +140,13 @@ ou (para máquina linux usando docker)
 
 `sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2`
 
+**Instale o editor nano**
+
+`sudo apt-get install nano`
+
 **Inicializar o python3.7 como padrão na inicialização do sistema**
 
-`nano ~/.bashrc.`
+`nano ~/.bashrc`
 
 **Adicione as linhas abaixo ao final do arquivo aberto no nano para trocar a versão padrão do python do spark para o python3. Salve o arquivo após a edição.**
 
@@ -229,6 +233,10 @@ for key in df_dict:
     df_dict[key].plot.barh(y='Quantidade', x='nome_bairro', rot=75, figsize=(12, 12), fontsize=12, title='Número de Acidentes com Vítimas por Bairro', xlabel='Bairros')
     plt.savefig('output/output'+str(key)+'.png')
 ```
+
+**Também é possível executar uma aplicação escrita em um arquivo usando o comando spark-submit**
+
+`spark-submit /vagrant/sparks.py`
 
 **Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D**
 
