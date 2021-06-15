@@ -246,7 +246,7 @@ FALTA INCLUIR
 
 ### Total de pessoas acidentadas por tipo de veiculo e tipo de pavimentação;
 
-**Execute o código python abaixo dentro na linha de comando do pyspark**
+**Código fonte da solução**
 
 ```python
 from pyspark.sql import SparkSession
@@ -263,7 +263,7 @@ dfpandas.plot.barh(x="description", figsize=(30, 30), fontsize=12, title='Total 
 plt.savefig('output/output.png')
 ```
 
-**Também é possível executar uma aplicação escrita em um arquivo usando o comando spark-submit**
+**Executando a solução**
 
 `spark-submit /vagrant/sparks3.py`
 
