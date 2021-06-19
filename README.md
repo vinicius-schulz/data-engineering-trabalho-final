@@ -273,7 +273,21 @@ FALTA INCLUIR
 
 ### Média de idade dos condutores por indicativo de embriaguez;
 
-FALTA INCLUIR
+from pyspark.sql import SparkSession
+from pyspark.sql import Row
+import matplotlib.pyplot as plt
+spark = SparkSession.builder.appName("Média de Idade dos condutores por indicativo de Embreagues").enableHiveSupport().getOrCreate()
+spark.sql("use gpdb")
+df = spark.sql("SELECT CONCAT_WS(\" e \", trim(env.idade), trim(env.`Embreagues`)) as Embreagues, COUNT(env.`Idade`) as Idade FROM si_env env GROUP BY env.`Idade`, env.`Embreagues`")
+dfpandas=df.toPandas()
+size = 10
+df_dict = {n: dfpandas.iloc[n:n+size, :] for n in range(0, len(dfpandas), size)}
+
+for key in df_dict:
+    plt.clf()
+    plt.close()
+    df_dict[key].plot.barh(y='Quantidade', x='nome_bairro', rot=75, figsize=(12, 12), fontsize=12, title='Número de Acidentes com Vítimas por Bairro', xlabel='Bairros')
+    plt.savefig('output/output'+str(key)+'.png')
 
 ## Enviar arquivos gerados para o HDFS
 
