@@ -242,6 +242,7 @@ for key in df_dict:
 
 ### Total de acidentes por tipo de pavimento e condição do tempo;
 
+```python
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
 import matplotlib.pyplot as plt
@@ -253,6 +254,7 @@ plt.clf()
 plt.close()
 dfpandas.plot.barh(x="description", figsize=(30, 30), fontsize=12, title='Total de acidentes por tipo de pavimento e condição do tempo')
 plt.savefig('output/output.png')
+```
 
 ### Total de pessoas acidentadas por tipo de veiculo e tipo de pavimentação;
 
@@ -283,6 +285,7 @@ FALTA INCLUIR
 
 ### Média de idade dos condutores por indicativo de embriaguez;
 
+```python
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
 import matplotlib.pyplot as plt
@@ -298,6 +301,7 @@ for key in df_dict:
     plt.close()
     df_dict[key].plot.barh(y='Quantidade', x='nome_bairro', rot=75, figsize=(12, 12), fontsize=12, title='Número de Acidentes com Vítimas por Bairro', xlabel='Bairros')
     plt.savefig('output/output'+str(key)+'.png')
+```
 
 ## Enviar arquivos gerados para o HDFS
 
