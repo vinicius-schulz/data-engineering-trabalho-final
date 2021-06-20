@@ -281,7 +281,27 @@ plt.savefig('output/output.png')
 
 ### Média de idade dos condutores por tipo de veículo e tipo de acidente;
 
-FALTA INCLUIR
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql import Row
+import matplotlib.pyplot as plt
+spark = SparkSession.builder.appName("Média de idade dos condutores por tipo de veículo e tipo de
+acidente").enableHiveSupport().getOrCreate()
+spark.sql("use gpdb")
+df = spark.sql("SELECT CONCAT_WS(\" e \", trim(env.especie_veiculo), trim(bol.DESC_TIPO_ACIDENTE)) as
+Tipo_Acidente, AVG(env.`Idade`)AS Media_Idade FROM si_log log JOIN si_bol bol ON
+bol.`NUMERO_BOLETIM` = log.`Nº_boletim` JOIN si_env env ON env.`num_boletim` = log.`Nº_boletim` GROUP
+BY env.especie_veiculo, bol.DESC_TIPO_ACIDENTE")
+dfpandas=df.toPandas()
+size = 10
+df_dict = {n: dfpandas.iloc[n:n+size, :] for n in range(0, len(dfpandas), size)}
+for dabla in df_dict:
+    plt.clf()
+    plt.close()
+    df_dict[dabla].plot.barh(y='Media_Idade', x='Tipo_Acidente',rot=75, figsize=(12, 12), fontsize=12, title='Média de idade dos condutores por tipo de veículo e tipo de acidente', xlabel='Média')
+    plt.savefig('output/'+str(dabla)+'.png')
+```
 
 ### Média de idade dos condutores por indicativo de embriaguez;
 
