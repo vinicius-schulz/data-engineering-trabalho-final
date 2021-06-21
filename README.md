@@ -74,13 +74,15 @@ ou (para máquina linux usando docker)
 
 ## Criando estrutura de diretórios na VM e HDFS e cópia de arquivos
 
-**Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv e si-log-2019.csv para a VM**
+**Faça o upload dos arquivos si_env-2019.csv, si-bol-2019.csv, si-log-2019.csv e sparks.py para a VM**
 
 `vagrant upload "si_env-2019.csv" /home/vagrant/si_env.csv`
 
 `vagrant upload "si-bol-2019.csv" /home/vagrant/si_bol.csv`
 
 `vagrant upload "si-log-2019.csv" /home/vagrant/si_log.csv`
+
+`vagrant upload "si_env-2019.csv" /home/vagrant/sparks.py`
 
 **Conecte-se à VM usando o comando abaixo**
 
@@ -323,7 +325,7 @@ for key in df_dict:
 
 **Também é possível executar uma aplicação escrita em um arquivo usando o comando spark-submit**
 
-`spark-submit /vagrant/sparks.py`
+`spark-submit /home/vagrant/sparks.py`
 
 **Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D**
 
