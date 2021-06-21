@@ -215,6 +215,8 @@ LOCATION '/user/vagrant/log/';
 
 **Execute o código python abaixo dentro na linha de comando do pyspark**
 
+**Código fonte da solução**
+
 ```python
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
@@ -234,13 +236,9 @@ for key in df_dict:
     plt.savefig('output/output'+str(key)+'.png')
 ```
 
-**Também é possível executar uma aplicação escrita em um arquivo usando o comando spark-submit**
-
-`spark-submit /vagrant/sparks.py`
-
-**Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D**
-
 ### Total de acidentes por tipo de pavimento e condição do tempo;
+
+**Código fonte da solução**
 
 ```python
 from pyspark.sql import SparkSession
@@ -275,12 +273,9 @@ dfpandas.plot.barh(x="description", figsize=(30, 30), fontsize=12, title='Total 
 plt.savefig('output/output.png')
 ```
 
-**Executando a solução**
-
-`spark-submit /vagrant/sparks3.py`
-
 ### Média de idade dos condutores por tipo de veículo e tipo de acidente;
 
+**Código fonte da solução**
 
 ```python
 from pyspark.sql import SparkSession
@@ -305,6 +300,8 @@ for dabla in df_dict:
 
 ### Média de idade dos condutores por indicativo de embriaguez;
 
+**Código fonte da solução**
+
 ```python
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
@@ -322,6 +319,13 @@ for key in df_dict:
     df_dict[key].plot.barh(y='Quantidade', x='nome_bairro', rot=75, figsize=(12, 12), fontsize=12, title='Número de Acidentes com Vítimas por Bairro', xlabel='Bairros')
     plt.savefig('output/output'+str(key)+'.png')
 ```
+
+
+**Também é possível executar uma aplicação escrita em um arquivo usando o comando spark-submit**
+
+`spark-submit /vagrant/sparks.py`
+
+**Após a execução e geração dos arquivos de gráfico saida do console do pyspark apertando Ctrl+D**
 
 ## Enviar arquivos gerados para o HDFS
 
